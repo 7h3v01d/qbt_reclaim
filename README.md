@@ -48,4 +48,4 @@ Requires Python 3.10+ and a qBittorrent instance with the **Web UI enabled** (Op
 
 ## License
 
-Apache License 2.0 — see [LICENSE](LICENSE).
+Leon Priest ([7h3v01d](https://github.com/7h3v01d)) · Apache 2.0 — see [LICENSE](LICENSE).
