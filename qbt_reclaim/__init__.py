@@ -9,7 +9,7 @@ License: Apache 2.0
 """
 
 __app_name__ = "qBt Reclaim"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Leon Priest"
 __github__ = "7h3v01d"
 __license__ = "Apache-2.0"

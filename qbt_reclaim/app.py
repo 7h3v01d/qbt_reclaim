@@ -135,6 +135,11 @@ class MainWindow(QMainWindow):
         self._configure_client()
         self._probe_connection()
 
+        if not os.path.isdir(self.cfg.scan_folder):
+            self.tabs.setCurrentIndex(1)  # Settings
+            self.statusBar().showMessage(
+                f"Scan folder not found: {self.cfg.scan_folder} — set it here, then Save.", 0)
+
     # ------------------------------------------------------------------ UI
     def _build_ui(self) -> None:
         central = QWidget()
@@ -465,9 +470,13 @@ class MainWindow(QMainWindow):
         self.stat_reclaimable.setText(human_size(reclaimable))
         self._refresh_selected_stat()
         self._set_conn_indicator(True, self.client.version)
-        self.statusBar().showMessage(
-            f"Scan complete — {len(files)} files, {len(orphans)} orphans, "
-            f"{human_size(reclaimable)} reclaimable.", 10000)
+        if not files:
+            self.statusBar().showMessage(
+                f"Scan complete — folder is empty: {self.cfg.scan_folder}", 12000)
+        else:
+            self.statusBar().showMessage(
+                f"Scan complete — {len(files)} files, {len(orphans)} orphans, "
+                f"{human_size(reclaimable)} reclaimable.", 10000)
 
         locked = [f for f in files if f.status == "Locked/Admin"]
         if locked and not self._admin and os.name == "nt":

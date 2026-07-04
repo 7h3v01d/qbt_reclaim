@@ -12,6 +12,7 @@ Conventions:
 from __future__ import annotations
 
 import logging
+import os
 import time
 
 from PyQt6.QtCore import QThread, pyqtSignal, pyqtSlot
@@ -54,6 +55,13 @@ class ScanWorker(QThread):
     @pyqtSlot()
     def run(self) -> None:
         try:
+            scan_root = self._cfg.scan_folder
+            if not os.path.isdir(scan_root):
+                self.failed.emit(
+                    f"Scan folder does not exist:\n{scan_root}\n\n"
+                    "Set the correct path in Settings → Scan folder.")
+                return
+
             self.progress.emit("Fetching torrent inventory from qBittorrent…")
             claims = self._client.get_claims(self._cfg.ignore_extensions)
 
