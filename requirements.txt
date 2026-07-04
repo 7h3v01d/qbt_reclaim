@@ -1,0 +1,3 @@
+PyQt6>=6.6
+qbittorrent-api>=2024.1
+send2trash>=1.8    # optional but recommended: recycle-bin deletes
